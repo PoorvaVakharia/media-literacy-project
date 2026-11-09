@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNovels</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Chat Header */
+        .chat-header {
+            background-color: #8867ff;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .end-chat-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+.end-chat-btn:hover {
+    background-color: #cc0000;
+}
+        /* Messaging Window */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Message Bubbles */
+        .message {
+            max-width: 75%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        /* Incoming message styling (Left side) */
+        .message.incoming {
+            background-color: #e9ecef;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Outgoing message styling (Right side) */
+        .message.outgoing {
+            background-color: #0078ff;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        /* Input Form Area */
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #e9ecef;
+            background-color: #fff;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input:focus {
+            border-color: #0078ff;
+        }
+
+        .send-btn {
+            background-color: #0078ff;
+            color: white;
+            border: none;
+            padding: 0 18px;
+            margin-left: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .send-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<br>
+<h3>Please be aware of sharing personal details and follow our Terms of Service.</h3><br>
+
+    
+<body>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <span>Chat Room</span>
+            <button type="button" class="end-chat-btn" onclick="requestEndChat()">
+                End Chat
+            </button>
+        </div>
+
+        <div id="endChatRequest" style="display:none;">
+            <p>The other participant wants to end this chat.</p>
+            <p>Do you agree?</p>
+
+            <button onclick="respondToEndChat(true)">
+                Agree
+            </button>
+
+            <button onclick="respondToEndChat(false)">
+                Decline
+            </button>
+        </div>
+        
+        <!-- This is the area where messages appear -->
+        <div class="chat-messages" id="chatMessages">
+        </div>
+
+        <!-- Input container for typing and sending messages -->
+        <form class="chat-input-area" id="chatForm">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type a message..." autocomplete="off" required>
+            <button type="submit" class="send-btn">Send</button>
+        </form>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>
