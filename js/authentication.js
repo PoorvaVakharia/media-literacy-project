@@ -1,3 +1,14 @@
+const username = localStorage.getItem('knovels_username');
+const userGreeting = document.getElementById('userGreeting');
+
+if (username) {
+    userGreeting.textContent = username;
+} else {
+    // No saved name? Return to signup.
+    window.location.replace("signUp.html");
+}
+
+
 const highSchoolButton = document.getElementById('hsBtn');
 const collegeButton = document.getElementById('collegeBtn');
 const otherButton = document.getElementById('otherBtn');
@@ -23,6 +34,8 @@ otherButton.addEventListener('click', () => {
 });
 
 logOutButton.addEventListener('click', () => {
+    localStorage.removeItem('knovels_username');
+
     alert("Successfully logged out.");
-    window.location.replace("index.html");
+    window.location.replace("../index.html");
 });

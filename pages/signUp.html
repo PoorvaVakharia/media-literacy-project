@@ -4,14 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNovels</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <h1>Nice to meet you! Let's start analyzing academic texts, together!</h1>
     <br>
     <br>
   <div class="sign-in"><form id="signUpForm">
-        <label for="email">Email</label>
+<input
+
+    type="text"
+
+    id="su_name"
+
+    name="su_name"
+
+    placeholder="What should we call you?"
+
+    autocomplete="given-name"
+
+    required
+
+>
+
+<br>  
+      <label for="email">Email</label>
         <input 
         type="email" 
         id="su_email" 
@@ -38,11 +55,21 @@
         required
         >
         <br>
-        
-        <button type="submit"; id="sign-up-btn">Join Us!</button>
+        <button type="submit" id="sign-up-btn">Join Us!</button>
+
+        <p>Already have an account?</p>
+
+        <a href="../index.html" class="auth-link">
+           Back to Sign In
+        </a>
+        <a href="../index.html">
+
+    <button type="button">Back to Sign In</button>
+
+</a>
         <br>
     </div></form>
-    <script src="signUp.js"></script>
+    <script src="../js/signUp.js"></script>
 
 
 </body>
