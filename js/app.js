@@ -12,7 +12,7 @@ loginForm.addEventListener('submit', function(event) {
 
     if (emailInput.checkValidity() && passwordValue === "check") {
         alert("Sign in successful!");
-        window.location.replace("authentication.html");
+        window.location.replace("pages/authentication.html");
     } else {
         alert("Invalid email or password.");
     }
@@ -20,5 +20,5 @@ loginForm.addEventListener('submit', function(event) {
 
 
 signUpButton.addEventListener('click', () => {
-    window.location.replace("signUp.html");
+    window.location.replace("pages/signUp.html");
 });
