@@ -1,23 +1,19 @@
-const username = localStorage.getItem('knovels_username');
-const userGreeting = document.getElementById('userGreeting');
+const savedUser = JSON.parse(localStorage.getItem('knovels_user') || 'null');
+const isLoggedIn = sessionStorage.getItem('knovels_logged_in') === 'true';
 
-if (username) {
-    userGreeting.textContent = username;
+if (!savedUser || !isLoggedIn) {
+    window.location.replace("../index.html");
 } else {
-    // No saved name? Return to signup.
-    window.location.replace("signUp.html");
+    document.getElementById('userGreeting').textContent = savedUser.name;
 }
-
 
 const highSchoolButton = document.getElementById('hsBtn');
 const collegeButton = document.getElementById('collegeBtn');
 const otherButton = document.getElementById('otherBtn');
 const logOutButton = document.getElementById('logoutBtn');
-let academia = "";
 
-// Matching function
-async function textSelection(level) {
-    academia = level;
+function textSelection(level) {
+    sessionStorage.setItem('knovels_academia', level);
     window.location.href = "chooseText.html";
 }
 
@@ -34,7 +30,8 @@ otherButton.addEventListener('click', () => {
 });
 
 logOutButton.addEventListener('click', () => {
-    localStorage.removeItem('knovels_username');
+    sessionStorage.removeItem('knovels_logged_in');
+    sessionStorage.removeItem('knovels_academia');
 
     alert("Successfully logged out.");
     window.location.replace("../index.html");
