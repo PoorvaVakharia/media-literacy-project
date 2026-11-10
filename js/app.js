@@ -1,31 +1,31 @@
-const signUpButton = document.getElementById('sign-up-btn');
-const loginForm = document.getElementById('loginForm');
+import { auth } from "./firebase-config.js";
 
-loginForm.addEventListener('submit', function(event) {
+import {
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+
+const signUpButton = document.getElementById("sign-up-btn");
+const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const emailInput = document.getElementById('si_email');
-    const email = emailInput.value.trim().toLowerCase();
-    const password = document.getElementById('si_pwd').value;
+    const email = document.getElementById("si_email").value.trim();
+    const password = document.getElementById("si_pwd").value;
 
-    const savedUser = JSON.parse(localStorage.getItem('knovels_user') || 'null');
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
 
-    if (!savedUser) {
-        alert("No demo account found. Please sign up first!");
-        return;
-    }
+        alert("Sign in successful!");
 
-    if (emailInput.checkValidity() && email === savedUser.email && password.length > 0) {
-        // Demo login: password is NOT verified.
-        sessionStorage.setItem('knovels_logged_in', 'true');
-
-        alert("Demo sign in successful!");
         window.location.replace("pages/authentication.html");
-    } else {
+
+    } catch (error) {
         alert("Invalid email or password.");
+        console.error(error);
     }
 });
 
-signUpButton.addEventListener('click', () => {
+signUpButton.addEventListener("click", () => {
     window.location.replace("pages/signUp.html");
 });
