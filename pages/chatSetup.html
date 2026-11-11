@@ -3,50 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNovels</title>
+    <title>Choose a reading | KNovels</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<h1>New chat created!</h1>
-<h3>Discussion partner found. Please be aware of sharing personal details and follow our Terms of Service.</h3>
-
-<div id="status"></div>
-
-  <h2>Upload and View PDF</h2>
-  
-  <!-- 1. Simple File Input (Only allows PDFs) -->
-  <input type="file" id="pdfInput" accept="application/pdf" />
-
-  <br><br>
-
-  <!-- 2. Container where the PDF will be shown -->
-  <iframe id="pdfPreview" style="width:100%; height:300px; display:none;"></iframe>
-
-  <script>
-    const pdfInput = document.getElementById('pdfInput');
-    const pdfPreview = document.getElementById('pdfPreview');
-
-    // 3. Listen for when a user chooses a file
-    pdfInput.addEventListener('change', (event) => {
-      const file = event.target.files[0]; // Get the selected file
-      
-      if (file) {
-      // Optional: Validate that the file is a PDF
-      if (file.type !== 'application/pdf') {
-        alert('Please upload a PDF file.');
-        return;
-      }
-
-      // Create temporary URL for the PDF
-      const fileUrl = URL.createObjectURL(file);
-      // Point the iframe to that link and make it visible
-       // pdfPreview.src = fileUrl;
-        //pdfPreview.style.display = 'block';
-
-      // Redirect to another page
-      window.location.href = 'chat.html';
-    }
-  });
-  </script>
-
+<body>
+    <main>
+        <h1>Discuss a reading</h1>
+        <p>Choose a PDF. Anyone choosing the exact same file joins the same discussion room.</p>
+        <p>Your PDF stays on your device. Different exports or editions may create different rooms.</p>
+        <label for="pdfInput">Reading PDF (up to 25 MB)</label>
+        <input type="file" id="pdfInput" accept="application/pdf,.pdf">
+        <p id="status" role="status">Choose a PDF to find its discussion room.</p>
+        <iframe id="pdfPreview" title="Preview of your selected reading" style="width:100%;height:400px" hidden></iframe>
+        <p><a id="joinChat" hidden>Join this reading’s discussion</a></p>
+        <p><a href="chooseText.html">Back to discussion options</a></p>
+    </main>
+    <script type="module" src="../js/chatSetup.js"></script>
 </body>
 </html>

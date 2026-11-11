@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function validRoom(roomId) {
+      return roomId == 'general' || roomId.matches('pdf-[a-f0-9]{64}');
+    }
+    match /chatrooms/{roomId}/messages/{messageId} {
+      allow read: if signedIn() && validRoom(roomId);
+      allow create: if signedIn() && validRoom(roomId)
+        && request.resource.data.keys().hasAll(['senderId', 'senderName', 'text', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['senderId', 'senderName', 'text', 'createdAt'])
+        && request.resource.data.senderId == request.auth.uid
+        && request.resource.data.senderName is string
+        && request.resource.data.senderName.size() > 0
+        && request.resource.data.senderName.size() <= 80
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+    match /chatrooms/{roomId}/presence/{sessionId} {
+      allow read: if signedIn() && validRoom(roomId);
+      allow create: if signedIn() && validRoom(roomId) && validPresence();
+      allow update: if signedIn() && validRoom(roomId)
+        && resource.data.uid == request.auth.uid && validPresence();
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+      function validPresence() {
+        return request.resource.data.keys().hasAll(['uid', 'updatedAt'])
+          && request.resource.data.keys().hasOnly(['uid', 'updatedAt'])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.updatedAt == request.time;
+      }
+    }
+  }
+}
